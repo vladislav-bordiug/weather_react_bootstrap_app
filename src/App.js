@@ -54,7 +54,7 @@ function WeatherDisplay({zip}){
   useEffect(() => {
     const URL = "http://api.openweathermap.org/data/2.5/weather?q=" +
       zip +
-      "&appid=b1b35bba8b434a28a0be2a3e1071ae5b&units=imperial";
+      "&appid=b1b35bba8b434a28a0be2a3e1071ae5b&units=metric";
     fetch(URL).then(res => res.json()).then(json => {
       setWeather({weatherData: json});
     });
@@ -68,10 +68,10 @@ function WeatherDisplay({zip}){
         {weathercity.main} in {weather.weatherData.name}
         <img src = {iconUrl} alt = {weather.weatherData.description}/>
       </h1>
-      <p>Current: {((weather.weatherData.main.temp-32)*5/9).toFixed(1)}°C</p>
-      <p>High: {((weather.weatherData.main.temp_max-32)*5/9).toFixed(1)}°C</p>
-      <p>Low: {((weather.weatherData.main.temp_min-32)*5/9).toFixed(1)}°C</p>
-      <p>Wind speed: {(weather.weatherData.wind.speed/2.237).toFixed(2)} m/s</p>
+      <p>Current: {weather.weatherData.main.temp.toFixed(1)}°C</p>
+      <p>High: {weather.weatherData.main.temp_max.toFixed(1)}°C</p>
+      <p>Low: {weather.weatherData.main.temp_min.toFixed(1)}°C</p>
+      <p>Wind speed: {weather.weatherData.wind.speed.toFixed(2)} m/s</p>
     </div>
   );
 }
