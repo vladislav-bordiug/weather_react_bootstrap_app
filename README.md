@@ -6,4 +6,4 @@ This react weather app allows you to view the weather and forecasts in different
 
 ![alt text](image.png)
 
-![alt text](weather.gif)
+![alt text](Weather.gif)
