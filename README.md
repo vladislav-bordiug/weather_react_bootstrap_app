@@ -2,8 +2,8 @@
 
 This react weather app allows you to view the weather and forecasts in different cities.
 
-<image src="image.png" alt="1">
+![alt text](image-1.png)
 
-<image src="image-1.png" alt="2">
+![alt text](image.png)
 
-![alt text](Weather.gif)
+![alt text](weather.gif)
