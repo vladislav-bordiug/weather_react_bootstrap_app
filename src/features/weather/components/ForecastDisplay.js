@@ -1,20 +1,11 @@
-import { useEffect } from 'react';
 import { Row, Col } from "react-bootstrap";
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchForecastdata } from '../weatherSlice';
+import { useSelector } from 'react-redux';
 import { days } from '../../../data/data.js';
+import './styles.css';
 
 function ForecastDisplay(){
-  const lon = useSelector((state) => state.weather.lon)
-  const lat = useSelector((state) => state.weather.lat)
   const forecastData = useSelector((state) => state.weather.forecastData)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    if (lat != null && lon != null){
-      dispatch(fetchForecastdata({lat: lat, lon: lon}))
-    }
-  }, [lat, lon, dispatch])
-  if (!forecastData) return <div>Loading...</div>;
+  if (!forecastData) return <div className = "loading"><p className="loading">Loading...</p><div className="spinner"></div></div>;
   return (
     <Row>
       {forecastData.list.map((place, index) => (

@@ -1,20 +1,11 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchWeatherdata } from '../weatherSlice';
+import { useSelector, useStore } from 'react-redux';
 import { PLACES } from '../../../data/data.js';
+import './styles.css';
 
 function WeatherDisplay(){
-    const activeCity = useSelector((state) => state.weather.activeCity)
-    const lon = useSelector((state) => state.weather.lon)
-    const lat = useSelector((state) => state.weather.lat)
     const weatherData = useSelector((state) => state.weather.weatherData)
-    const dispatch = useDispatch()
-    useEffect(() => {
-      if (lat != null && lon != null){
-        dispatch(fetchWeatherdata({lat: lat, lon: lon}))
-      }
-    }, [lat, lon, dispatch])
-    if(!weatherData) return <div>Loading...</div>;
+    const activeCity = useStore().getState().weather.activeCity;
+    if(!weatherData) return <div className = "loading"><p className="loading">Loading...</p><div className="spinner"></div></div>;
     const weathercity = weatherData.weather[0];
     const iconUrl = "http://openweathermap.org/img/wn/" + weathercity.icon + ".png";
     return (

@@ -1,18 +1,25 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeCity, fetchCity} from '../weatherSlice';
+import { changeCity, fetchCity, fetchForecastdata, fetchWeatherdata } from '../weatherSlice';
 import { Nav, Row, Col } from "react-bootstrap";
 import ForecastDisplay from './ForecastDisplay';
 import WeatherDisplay from './WeatherDisplay';
 import {PLACES} from '../../../data/data.js';
 
 function WeatherSection(){
-    console.log(PLACES);
     const activeCity = useSelector((state) => state.weather.activeCity)
+    const lon = useSelector((state) => state.weather.lon)
+    const lat = useSelector((state) => state.weather.lat)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(fetchCity(PLACES[activeCity].zip));
     }, [activeCity, dispatch])
+    useEffect(() => {
+        if (lat != null && lon != null){
+          dispatch(fetchForecastdata({lat: lat, lon: lon}))
+          dispatch(fetchWeatherdata({lat: lat, lon: lon}))
+        }
+    }, [lat, lon, dispatch])
     return (
         <>
             <Row>
@@ -22,7 +29,9 @@ function WeatherSection(){
                     variant="pills"
                     activeKey = {activeCity}
                     onSelect = {index => {
-                        dispatch(changeCity(index));
+                        if (index != activeCity){
+                            dispatch(changeCity(index));
+                        }
                     }}
                     className="flex-column"
                     >

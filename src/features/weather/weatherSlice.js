@@ -36,30 +36,26 @@ export const weatherSlice = createSlice({
   },
   reducers: {
     changeCity: (state, action) => {
+        state.weatherData = null;
+        state.forecastData = null;
         state.activeCity = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-        .addCase(fetchCity.fulfilled, (state, action) => {
-            state.lon = action.payload.lon;
-            state.lat = action.payload.lat;
-        })
         .addCase(fetchCity.pending, (state) => {
             state.lon = null;
             state.lat = null;
         })
+        .addCase(fetchCity.fulfilled, (state, action) => {
+            state.lon = action.payload.lon;
+            state.lat = action.payload.lat;
+        })
         .addCase(fetchWeatherdata.fulfilled, (state, action) => {
             state.weatherData = action.payload;
         })
-        .addCase(fetchWeatherdata.pending, (state) => {
-            state.weatherData = null;
-        })
         .addCase(fetchForecastdata.fulfilled, (state, action) => {
             state.forecastData = action.payload;
-        })
-        .addCase(fetchForecastdata.pending, (state) => {
-            state.forecastData = null;
         })
   }
 })
