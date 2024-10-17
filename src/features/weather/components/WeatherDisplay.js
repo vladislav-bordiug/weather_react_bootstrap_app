@@ -5,7 +5,7 @@ import './styles.css';
 function WeatherDisplay(){
     const weatherData = useSelector((state) => state.weather.weatherData)
     const activeCity = useStore().getState().weather.activeCity;
-    if(!weatherData) return <div className = "loading"><p className="loading">Loading...</p><div className="spinner"></div></div>;
+    if(!weatherData) return <div className = "d-flex flex-row"><p className="loading">Loading...</p><div className="spinner"></div></div>;
     const weathercity = weatherData.weather[0];
     const iconUrl = "http://openweathermap.org/img/wn/" + weathercity.icon + ".png";
     return (

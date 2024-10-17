@@ -5,7 +5,7 @@ import './styles.css';
 
 function ForecastDisplay(){
   const forecastData = useSelector((state) => state.weather.forecastData)
-  if (!forecastData) return <div className = "loading"><p className="loading">Loading...</p><div className="spinner"></div></div>;
+  if (!forecastData) return <div className = "d-flex flex-row"><p className="loading">Loading...</p><div className="spinner"></div></div>;
   return (
     <Row>
       {forecastData.list.map((place, index) => (
