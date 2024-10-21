@@ -7,7 +7,7 @@ import WeatherDisplay from './features/weather/components/WeatherDisplay';
 import ForecastDisplay from './features/weather/components/ForecastDisplay';
 import { PLACES, days } from './data/data';
 const { thunk } = require('redux-thunk')
-import { fetchCity, fetchWeatherdata, fetchForecastdata, changeCity } from './features/weather/weatherSlice';
+
 
 const middleware = [ thunk ];
 const mockStore = configureStore(middleware);
