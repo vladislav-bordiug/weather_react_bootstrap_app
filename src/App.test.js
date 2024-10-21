@@ -148,13 +148,14 @@ describe('WeatherSection Component', () => {
       },
     });
 
-    render(
+    const { container } = render(
       <Provider store={store}>
-        <WeatherDisplay />
+        <ForecastDisplay />
       </Provider>
     );
 
     expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
+    expect(container.querySelector('.spinner')).toBeInTheDocument();
   });
 
   test('renders forecast data after loading', async () => {
@@ -338,13 +339,14 @@ describe('WeatherSection Component', () => {
       },
     });
 
-    render(
+    const { container } = render(
       <Provider store={store}>
         <ForecastDisplay />
       </Provider>
     );
 
     expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
+    expect(container.querySelector('.spinner')).toBeInTheDocument();
   });
 
 });
