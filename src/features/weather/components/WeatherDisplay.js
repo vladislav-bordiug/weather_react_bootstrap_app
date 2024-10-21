@@ -12,7 +12,7 @@ function WeatherDisplay(){
       <div>
         <h1>
           {weathercity.main} in {PLACES[activeCity].name}
-          <img src = {iconUrl} alt = {weatherData.description}/>
+          <img src = {iconUrl} alt = {weathercity.description}/>
         </h1>
         <p>Current: {weatherData.main.temp.toFixed(1)}°C</p>
         <p>Feels like: {weatherData.main.feels_like.toFixed(1)}°C</p>
