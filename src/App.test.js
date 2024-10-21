@@ -150,7 +150,7 @@ describe('WeatherSection Component', () => {
 
     const { container } = render(
       <Provider store={store}>
-        <ForecastDisplay />
+        <WeatherDisplay />
       </Provider>
     );
 
