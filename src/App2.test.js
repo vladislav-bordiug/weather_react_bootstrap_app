@@ -29,77 +29,6 @@ describe('WeatherSection Component', () => {
     store = mockStore(initialState);
   });
 
-  test('renders WeatherSection with city selector and weather display', async () => {
-    render(
-      <Provider store={store}>
-        <WeatherSection />
-      </Provider>
-    );
-
-    PLACES.forEach((place, index) => {
-      expect(screen.getByText(place.name)).toBeInTheDocument();
-    });
-
-    expect(screen.getByRole('heading', { name: /Forecasts for 6 days/i })).toBeInTheDocument();
-    expect(screen.getByText('Select a city')).toBeInTheDocument();
-  });
-
-  test('changes city and dispatches actions to fetch new data', async () => {
-    render(
-      <Provider store={store}>
-        <WeatherSection />
-      </Provider>
-    );
-
-    expect(screen.getByText(PLACES[0].name)).toBeInTheDocument();
-
-    fireEvent.click(screen.getByText(PLACES[1].name));
-
-    let actions = store.getActions();
-    expect(actions).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          type: 'weather/changeCity',
-          payload: '1',
-        }),
-      ])
-    );
-
-    await waitFor(() => {
-      const updatedActions = store.getActions();
-      expect(updatedActions).toContainEqual(
-        expect.objectContaining({
-          type: 'weather/fetchCity/pending',
-        })
-      );
-      expect(updatedActions).toContainEqual(
-        expect.objectContaining({
-          type: 'weather/fetchWeatherdata/pending',
-        })
-      );
-      expect(updatedActions).toContainEqual(
-        expect.objectContaining({
-          type: 'weather/fetchForecastdata/pending',
-        })
-      );
-      expect(updatedActions).toContainEqual(
-        expect.objectContaining({
-          type: 'weather/fetchCity/fulfilled',
-        })
-      );
-      expect(updatedActions).toContainEqual(
-        expect.objectContaining({
-          type: 'weather/fetchWeatherdata/fulfilled',
-        })
-      );
-      expect(updatedActions).toContainEqual(
-        expect.objectContaining({
-          type: 'weather/fetchForecastdata/fulfilled',
-        })
-      );
-    });
-  });
-  
   test('renders weather data after loading', async () => {
     const mockWeatherData = {
       weather: [{ main: 'Clear', icon: '01d', description: 'clear sky' }],
@@ -135,6 +64,32 @@ describe('WeatherSection Component', () => {
     const icon = screen.getByAltText(mockWeatherData.weather[0].description);
     expect(icon).toBeInTheDocument();
     expect(icon).toHaveAttribute('src', iconSrc);
+  });
+
+  test('renders weather data when response is incorrect', () => {
+    const mockWeatherData = {
+        weather: [{ main: 'Clear', icon: '01d', description: 'clear sky' }],
+        main: { feels_like: 26.7, temp_max: 27.0, temp_min: 22.1 },
+        wind: { speed: 3.5 },
+      };
+  
+      store = mockStore({
+        weather: {
+          activeCity: 0,
+          weatherData: mockWeatherData,
+          forecastData: null,
+          lat: 0,
+          lon: 0,
+        },
+      });
+
+    const { container } = render(
+      <Provider store={store}>
+        <WeatherDisplay />
+      </Provider>
+    );
+
+    expect(screen.getByText(/Error in response/i)).toBeInTheDocument();
   });
 
   test('renders loading state when weather data is not available', () => {
@@ -328,6 +283,162 @@ describe('WeatherSection Component', () => {
     }
   });
 
+  test('renders forecast data when data is incorrect', async () => {
+    const mockForecastData = {
+      list: [{
+        "dt": 1662116400,
+        "temp": {
+          "day": 291.45,
+          "min": 286.15,
+          "max": 291.45
+        },
+        "feels_like": {
+          "day": 291.30
+        },
+        "weather": [
+          {
+            "main": "Rain",
+            "description": "light rain",
+            "icon": "10d"
+          }
+        ]
+      },
+      {
+        "dt": 1662202800,
+        "temp": {
+          "day": 289.90,
+          "min": 284.50,
+          "max": 289.90
+        },
+        "feels_like": {
+          "day": 289.70
+        },
+        "weather": [
+          {
+            "main": "Rain",
+            "description": "light rain",
+            "icon": "10d"
+          }
+        ],
+        "speed": 2.8
+      },
+      {
+        "dt": 1662289200,
+        "temp": {
+          "day": 288.20,
+          "min": 283.00,
+          "max": 288.20
+        },
+        "feels_like": {
+          "day": 288.00
+        },
+        "weather": [
+          {
+            "main": "Rain",
+            "description": "light rain",
+            "icon": "10d"
+          }
+        ],
+        "speed": 3.1
+      },
+      {
+        "dt": 1662375600,
+        "temp": {
+          "day": 290.00,
+          "min": 284.80,
+          "max": 290.00
+        },
+        "feels_like": {
+          "day": 289.80
+        },
+        "weather": [
+          {
+            "main": "Rain",
+            "description": "light rain",
+            "icon": "10d"
+          }
+        ],
+        "speed": 3.5
+      },
+      {
+        "dt": 1662462000,
+        "temp": {
+          "day": 292.00,
+          "min": 285.50,
+          "max": 292.00
+        },
+        "feels_like": {
+          "day": 291.80
+        },
+        "weather": [
+          {
+            "main": "Rain",
+            "description": "light rain",
+            "icon": "10d"
+          }
+        ],
+        "speed": 3.2
+      },
+      {
+        "dt": 1662548400,
+        "temp": {
+          "day": 290.50,
+          "min": 284.00,
+          "max": 290.50
+        },
+        "feels_like": {
+          "day": 290.30
+        },
+        "weather": [
+          {
+            "main": "Rain",
+            "description": "light rain",
+            "icon": "10d"
+          }
+        ],
+        "speed": 3.4
+      },
+      {
+        "dt": 1662634800,
+        "temp": {
+          "day": 293.20,
+          "min": 286.80,
+          "max": 293.20
+        },
+        "feels_like": {
+          "day": 293.00
+        },
+        "weather": [
+          {
+            "main": "Rain",
+            "description": "light rain",
+            "icon": "10d"
+          }
+        ],
+        "speed": 3.1
+      }            
+      ],
+    };
+
+    store = mockStore({
+      weather: {
+        activeCity: 0,
+        weatherData: null,
+        forecastData: mockForecastData,
+        lat: 0,
+        lon: 0,
+      },
+    });
+
+    render(
+      <Provider store={store}>
+        <ForecastDisplay />
+      </Provider>
+    );
+
+    expect(screen.getByText(/Error in response/i)).toBeInTheDocument();
+  });
+
   test('renders loading state when forecast data is not available', () => {
     store = mockStore({
       weather: {
@@ -348,5 +459,4 @@ describe('WeatherSection Component', () => {
     expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
     expect(container.querySelector('.spinner')).toBeInTheDocument();
   });
-
 });

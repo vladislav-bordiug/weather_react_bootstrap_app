@@ -6,6 +6,17 @@ import './styles.css';
 function ForecastDisplay(){
   const forecastData = useSelector((state) => state.weather.forecastData)
   if (!forecastData) return <div className = "d-flex flex-row"><p className="loading">Loading...</p><div className="spinner"></div></div>;
+  const errors = forecastData?.list.some((place) =>
+    !place?.weather?.[0]?.main ||
+    place?.dt === undefined ||
+    place?.temp.day === undefined ||
+    place?.feels_like.day === undefined ||
+    place?.temp.max === undefined ||
+    place?.temp.min === undefined ||
+    place?.speed === undefined
+  );
+  if (errors)
+    return <div className = "d-flex flex-row"><p className="loading">Error in response</p></div>;
   return (
     <Row>
       {forecastData.list.map((place, index) => (
