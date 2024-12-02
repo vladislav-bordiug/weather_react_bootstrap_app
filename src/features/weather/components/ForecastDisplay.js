@@ -16,9 +16,9 @@ function ForecastDisplay(){
     place?.speed === undefined
   );
   if (errors)
-    return <div className = "d-flex flex-row"><p className="loading">Error in response</p></div>;
+    return <div className = "d-flex flex-row" data-testid="error"><p className="loading">Error in response</p></div>;
   return (
-    <Row>
+    <Row data-testid="forecast">
       {forecastData.list.map((place, index) => (
         <Col md={2} sm={2} key = {index}>
             <h3>

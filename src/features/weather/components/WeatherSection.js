@@ -21,7 +21,7 @@ function WeatherSection(){
         }
     }, [lat, lon, dispatch])
     return (
-        <>
+        <div data-testid="weather">
             <Row>
                 <Col md={4} sm={4}>
                     <h3>Select a city</h3>
@@ -48,7 +48,7 @@ function WeatherSection(){
                 Forecasts for 6 days:
             </h1>
             <ForecastDisplay key = {activeCity}/>
-        </>
+        </div>
     );
 }
 

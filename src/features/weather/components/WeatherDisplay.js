@@ -16,7 +16,7 @@ function WeatherDisplay(){
       weatherData?.main?.temp_min === undefined ||
       weatherData?.wind?.speed === undefined
     )
-      return <div className = "d-flex flex-row"><p className="loading">Error in response</p></div>;
+      return <div className = "d-flex flex-row" data-testid="error"><p className="loading">Error in response</p></div>;
     const weathercity = weatherData.weather[0];
     const iconUrl = "http://openweathermap.org/img/wn/" + weathercity.icon + ".png";
     return (
