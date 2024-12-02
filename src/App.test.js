@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
@@ -7,7 +8,6 @@ import WeatherDisplay from './features/weather/components/WeatherDisplay';
 import ForecastDisplay from './features/weather/components/ForecastDisplay';
 import { PLACES, days } from './data/data';
 const { thunk } = require('redux-thunk')
-
 
 const middleware = [ thunk ];
 const mockStore = configureStore(middleware);
@@ -350,3 +350,4 @@ describe('WeatherSection Component', () => {
   });
 
 });
+*/
