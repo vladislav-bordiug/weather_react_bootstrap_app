@@ -33,7 +33,7 @@ describe('WeatherSection Component', () => {
   });
 
   test('renders weather data when response is incorrect', async () => {
-    const mockStore = configureStore({
+    const initialStore = configureStore({
       reducer: {
         weather: weatherReducer,
       },
@@ -52,7 +52,7 @@ describe('WeatherSection Component', () => {
     });
 
     render(
-      <Provider store={mockStore}>
+      <Provider store={initialStore}>
         <WeatherDisplay />
       </Provider>
     );
@@ -63,7 +63,7 @@ describe('WeatherSection Component', () => {
   });
 
   test('renders loading when weather data is null', async () => {
-    const mockStore = configureStore({
+    const initialStore = configureStore({
       reducer: {
         weather: weatherReducer,
       },
@@ -79,7 +79,7 @@ describe('WeatherSection Component', () => {
     });
 
     const { container } = render(
-      <Provider store={mockStore}>
+      <Provider store={initialStore}>
         <WeatherDisplay />
       </Provider>
     );
@@ -89,7 +89,7 @@ describe('WeatherSection Component', () => {
   });
 
   test('renders forecast data when data is incorrect', async () => {
-    const mockStore = configureStore({
+    const initialStore = configureStore({
       reducer: {
         weather: weatherReducer,
       },
@@ -111,7 +111,7 @@ describe('WeatherSection Component', () => {
     });
 
     render(
-      <Provider store={mockStore}>
+      <Provider store={initialStore}>
         <ForecastDisplay />
       </Provider>
     );
@@ -122,7 +122,7 @@ describe('WeatherSection Component', () => {
   });
 
   test('renders loading when forecast data is null', async () => {
-    const mockStore = configureStore({
+    const initialStore = configureStore({
       reducer: {
         weather: weatherReducer,
       },
@@ -138,7 +138,7 @@ describe('WeatherSection Component', () => {
     });
 
     const { container } = render(
-      <Provider store={mockStore}>
+      <Provider store={initialStore}>
         <ForecastDisplay />
       </Provider>
     );
